@@ -1,0 +1,22 @@
+{
+  "name": "kristopeles_sesi7",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter mochawesome"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "chai": "^6.2.0",
+    "mocha": "^11.7.4",
+    "mochawesome": "^7.1.4"
+  },
+  "dependencies": {
+    "ajv-formats": "^3.0.1",
+    "axios": "^1.12.2"
+  }
+}

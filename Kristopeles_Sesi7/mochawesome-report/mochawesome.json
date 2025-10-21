@@ -1,0 +1,157 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 4,
+    "passes": 4,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-10-21T09:30:29.966Z",
+    "end": "2025-10-21T09:30:30.937Z",
+    "duration": 971,
+    "testsRegistered": 4,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "157a8a8d-0be6-47b7-9a4d-be9d5b8c8e00",
+      "title": "",
+      "fullFile": "D:\\Praktikum\\Kristopeles_Sesi7\\test\\api.test.js",
+      "file": "\\test\\api.test.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "bfe4b85c-ae41-4d70-89f8-0c8ac92747e1",
+          "title": "API Automation Test for Reqres.in",
+          "fullFile": "D:\\Praktikum\\Kristopeles_Sesi7\\test\\api.test.js",
+          "file": "\\test\\api.test.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "GET: should get user list successfully",
+              "fullTitle": "API Automation Test for Reqres.in GET: should get user list successfully",
+              "timedOut": false,
+              "duration": 278,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const response = await apiClient.get(\"/users?page=1\");\nexpect(response.status).to.equal(200);\nexpect(response.data).to.have.property(\"data\");",
+              "err": {},
+              "uuid": "1a4516c4-a7b8-4fb4-aeca-3c896590593c",
+              "parentUUID": "bfe4b85c-ae41-4d70-89f8-0c8ac92747e1",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "POST: should create user successfully",
+              "fullTitle": "API Automation Test for Reqres.in POST: should create user successfully",
+              "timedOut": false,
+              "duration": 221,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const newUser = {\n  name: \"Kristopeles\",\n  job: \"QA Engineer\",\n};\nconst response = await apiClient.post(\"/users\", newUser);\nexpect(response.status).to.equal(201);\nexpect(response.data).to.have.property(\"name\", \"Kristopeles\");",
+              "err": {},
+              "uuid": "91a8bcc4-8c6b-4911-b1db-843a494730b6",
+              "parentUUID": "bfe4b85c-ae41-4d70-89f8-0c8ac92747e1",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "PATCH: should update user successfully",
+              "fullTitle": "API Automation Test for Reqres.in PATCH: should update user successfully",
+              "timedOut": false,
+              "duration": 229,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const updatedUser = {\n  name: \"Raja\",\n  job: \"Senior QA Engineer\",\n};\nconst response = await apiClient.patch(\"/users/2\", updatedUser);\nexpect(response.status).to.equal(200);\n// Perbaikan: Assertion harus memeriksa data yang dikirim\nexpect(response.data).to.have.property(\"name\", \"Raja\");",
+              "err": {},
+              "uuid": "5faad2c5-5702-4ecc-9a24-4baeb11c103e",
+              "parentUUID": "bfe4b85c-ae41-4d70-89f8-0c8ac92747e1",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "DELETE: should delete user successfully",
+              "fullTitle": "API Automation Test for Reqres.in DELETE: should delete user successfully",
+              "timedOut": false,
+              "duration": 230,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const response = await apiClient.delete(\"/users/2\");\nexpect(response.status).to.equal(204);",
+              "err": {},
+              "uuid": "2cf4e0b9-ad27-420d-9992-f7dcfeba05b5",
+              "parentUUID": "bfe4b85c-ae41-4d70-89f8-0c8ac92747e1",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "1a4516c4-a7b8-4fb4-aeca-3c896590593c",
+            "91a8bcc4-8c6b-4911-b1db-843a494730b6",
+            "5faad2c5-5702-4ecc-9a24-4baeb11c103e",
+            "2cf4e0b9-ad27-420d-9992-f7dcfeba05b5"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 958,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "11.7.4"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": null,
+      "version": "6.3.0"
+    }
+  }
+}
