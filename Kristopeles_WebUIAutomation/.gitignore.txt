@@ -1,0 +1,7 @@
+# Folder dependensi
+node_modules/
+
+# File Visual Test
+baseline.png
+current.png
+diff.png

@@ -1,0 +1,311 @@
+{
+  "stats": {
+    "suites": 3,
+    "tests": 6,
+    "passes": 6,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-10-24T18:49:33.996Z",
+    "end": "2025-10-24T18:49:57.264Z",
+    "duration": 23268,
+    "testsRegistered": 6,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "1f8816b6-3801-4195-a659-998acc0c9daf",
+      "title": "",
+      "fullFile": "",
+      "file": "",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "c357f0a4-f3e8-47f0-9908-ed40446a38bc",
+          "title": "Sesi 10: SauceDemo Test (Hooks)",
+          "fullFile": "D:\\Praktikum\\Kristopeles_WebUIAutomation\\tests\\tugas10.js",
+          "file": "\\tests\\tugas10.js",
+          "beforeHooks": [
+            {
+              "title": "\"before each\" hook in \"Sesi 10: SauceDemo Test (Hooks)\"",
+              "fullTitle": "Sesi 10: SauceDemo Test (Hooks) \"before each\" hook in \"Sesi 10: SauceDemo Test (Hooks)\"",
+              "timedOut": false,
+              "duration": 1399,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "driver = await new Builder().forBrowser('chrome').build();",
+              "err": {},
+              "uuid": "fae2b202-4c95-464f-9d60-c0ee9796f097",
+              "parentUUID": "c357f0a4-f3e8-47f0-9908-ed40446a38bc",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [
+            {
+              "title": "\"after each\" hook in \"Sesi 10: SauceDemo Test (Hooks)\"",
+              "fullTitle": "Sesi 10: SauceDemo Test (Hooks) \"after each\" hook in \"Sesi 10: SauceDemo Test (Hooks)\"",
+              "timedOut": false,
+              "duration": 79,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await driver.quit();",
+              "err": {},
+              "uuid": "d5089f97-72df-4fb7-8793-1bbcf0af2bd2",
+              "parentUUID": "c357f0a4-f3e8-47f0-9908-ed40446a38bc",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "tests": [
+            {
+              "title": "Harus berhasil login dan mengurutkan produk A-Z",
+              "fullTitle": "Sesi 10: SauceDemo Test (Hooks) Harus berhasil login dan mengurutkan produk A-Z",
+              "timedOut": false,
+              "duration": 1727,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Buka website saucedemo.com\nawait driver.get('https://www.saucedemo.com');\n// Cek apakah judul halamannya \"Swag Labs\"\nconst title = await driver.getTitle();\nassert.strictEqual(title, 'Swag Labs');\n// --- TAHAP LOGIN ---\nawait driver.findElement(By.css('[data-test=\"username\"]')).sendKeys('standard_user');\nawait driver.findElement(By.xpath('//*[@data-test=\"password\"]')).sendKeys('secret_sauce');\nawait driver.findElement(By.className('submit-button')).click();\n// Validasi setelah login: Cek apakah 'shopping cart' tampil\nlet buttonCart = await driver.wait(\n  until.elementLocated(By.xpath('//*[@data-test=\"shopping-cart-link\"]')),\n  10000\n);\nassert.ok(await buttonCart.isDisplayed(), 'Gagal login, shopping cart tidak ditemukan');\n// --- TAHAP SORTIR (A-Z) ---\nawait driver.findElement(By.css('.product_sort_container')).click();\nawait driver.findElement(By.xpath('//option[@value=\"az\"]')).click();\n// Validasi Sortir: Cek apakah dropdown sekarang menampilkan 'A TO Z'\nlet activeSortOption = await driver.findElement(By.className('active_option'));\nlet sortText = await activeSortOption.getText();\nassert.strictEqual(sortText, 'Name (A to Z)', 'Gagal mengurutkan A-Z');\nconsole.log('Test 1 Berhasil: Login dan Sortir A-Z sukses!');",
+              "err": {},
+              "uuid": "0a77325b-ffb2-4990-8f61-041565b39d61",
+              "parentUUID": "c357f0a4-f3e8-47f0-9908-ed40446a38bc",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Harus menampilkan error message untuk login yang gagal",
+              "fullTitle": "Sesi 10: SauceDemo Test (Hooks) Harus menampilkan error message untuk login yang gagal",
+              "timedOut": false,
+              "duration": 3102,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Buka website saucedemo.com\n// 'beforeEach' membuka browser dan melakukan tes\nawait driver.get('https://www.saucedemo.com');\n// --- TAHAP LOGIN GAGAL ---\n// Username salah\nawait driver.findElement(By.css('[data-test=\"username\"]')).sendKeys('user_salah');\nawait driver.findElement(By.xpath('//*[@data-test=\"password\"]')).sendKeys('secret_sauce');\nawait driver.findElement(By.className('submit-button')).click();\n// --- VALIDASI ERROR ---\n// Cari elemen error message\nlet errorMessage = await driver.findElement(By.css('h3[data-test=\"error\"]'));\n\n// Cek apakah elemennya tampil\nassert.ok(await errorMessage.isDisplayed(), 'Error message tidak tampil');\n// Cek isi teks error message\nlet errorText = await errorMessage.getText();\nassert.strictEqual(\n  errorText, \n  'Epic sadface: Username and password do not match any user in this service',\n  'Teks error message tidak sesuai'\n);\nconsole.log('Test 2 Berhasil: Menampilkan error login gagal sukses!');",
+              "err": {},
+              "uuid": "984e6473-e86f-413c-a90c-73057e70a696",
+              "parentUUID": "c357f0a4-f3e8-47f0-9908-ed40446a38bc",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "0a77325b-ffb2-4990-8f61-041565b39d61",
+            "984e6473-e86f-413c-a90c-73057e70a696"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 4829,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 60000
+        },
+        {
+          "uuid": "c1f2c06f-f964-4d66-a803-82f4d98b77b7",
+          "title": "Sesi 11: SauceDemo Test (POM & Visual)",
+          "fullFile": "D:\\Praktikum\\Kristopeles_WebUIAutomation\\tests\\tugas11.js",
+          "file": "\\tests\\tugas11.js",
+          "beforeHooks": [
+            {
+              "title": "\"before each\" hook in \"Sesi 11: SauceDemo Test (POM & Visual)\"",
+              "fullTitle": "Sesi 11: SauceDemo Test (POM & Visual) \"before each\" hook in \"Sesi 11: SauceDemo Test (POM & Visual)\"",
+              "timedOut": false,
+              "duration": 1322,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "driver = await new Builder().forBrowser('chrome').build();",
+              "err": {},
+              "uuid": "c82c14c4-c099-422c-91ce-3d2537437596",
+              "parentUUID": "c1f2c06f-f964-4d66-a803-82f4d98b77b7",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [
+            {
+              "title": "\"after each\" hook in \"Sesi 11: SauceDemo Test (POM & Visual)\"",
+              "fullTitle": "Sesi 11: SauceDemo Test (POM & Visual) \"after each\" hook in \"Sesi 11: SauceDemo Test (POM & Visual)\"",
+              "timedOut": false,
+              "duration": 79,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await driver.quit();",
+              "err": {},
+              "uuid": "7409ab6b-af1c-4ba3-8f15-47a0f0fbc32a",
+              "parentUUID": "c1f2c06f-f964-4d66-a803-82f4d98b77b7",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "tests": [
+            {
+              "title": "Harus berhasil login dan mengurutkan produk A-Z",
+              "fullTitle": "Sesi 11: SauceDemo Test (POM & Visual) Harus berhasil login dan mengurutkan produk A-Z",
+              "timedOut": false,
+              "duration": 1772,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await driver.get('https://www.saucedemo.com');\nconst title = await driver.getTitle();\nassert.strictEqual(title, 'Swag Labs');\nawait driver.findElement(PageLogin.inputUsername).sendKeys('standard_user');\nawait driver.findElement(PageLogin.inputPassword).sendKeys('secret_sauce');\nawait driver.findElement(PageLogin.buttonLogin).click();\nlet buttonCart = await driver.wait(\n  until.elementLocated(PageProducts.buttonCart), 10000\n);\nassert.ok(await buttonCart.isDisplayed(), 'Gagal login, shopping cart tidak ditemukan');\nawait driver.findElement(PageProducts.sortDropdown).click();\nawait driver.findElement(PageProducts.optionAZ).click();\nlet activeSortOption = await driver.findElement(PageProducts.activeSortOption);\nlet sortText = await activeSortOption.getText();\nassert.strictEqual(sortText, 'Name (A to Z)', 'Gagal mengurutkan A-Z');\nconsole.log('Test 1 (POM) Berhasil: Login dan Sortir A-Z sukses!');",
+              "err": {},
+              "uuid": "bb45280b-8533-4f22-8c89-4ce7792e8bf8",
+              "parentUUID": "c1f2c06f-f964-4d66-a803-82f4d98b77b7",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Harus menampilkan error message untuk login yang gagal",
+              "fullTitle": "Sesi 11: SauceDemo Test (POM & Visual) Harus menampilkan error message untuk login yang gagal",
+              "timedOut": false,
+              "duration": 1299,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await driver.get('https://www.saucedemo.com');\nawait driver.findElement(PageLogin.inputUsername).sendKeys('user_salah');\nawait driver.findElement(PageLogin.inputPassword).sendKeys('secret_sauce');\nawait driver.findElement(PageLogin.buttonLogin).click();\nlet errorMessage = await driver.findElement(PageLogin.errorMessage);\nassert.ok(await errorMessage.isDisplayed(), 'Error message tidak tampil');\nlet errorText = await errorMessage.getText();\nassert.strictEqual(\n  errorText, \n  'Epic sadface: Username and password do not match any user in this service',\n  'Teks error message tidak sesuai'\n);\nconsole.log('Test 2 (POM) Berhasil: Menampilkan error login gagal sukses!');",
+              "err": {},
+              "uuid": "02b65be2-cec4-4a36-8702-20663e94359a",
+              "parentUUID": "c1f2c06f-f964-4d66-a803-82f4d98b77b7",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Cek Visual halaman login",
+              "fullTitle": "Sesi 11: SauceDemo Test (POM & Visual) Cek Visual halaman login",
+              "timedOut": false,
+              "duration": 2696,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// 1. Buka halaman login\nawait driver.get('https://www.saucedemo.com');\n// waktu: 1s\nawait driver.sleep(1000); \n// 2. Tentukan nama file\nconst baselineImageFile = 'baseline.png';\nconst currentImageFile = 'current.png';\nconst diffImageFile = 'diff.png';\n// 3. Ambil screenshot halaman saat ini\nlet ss_current = await driver.takeScreenshot();\nfs.writeFileSync(currentImageFile, Buffer.from(ss_current, \"base64\"));\nconsole.log('Mengambil screenshot saat ini (current.png)');\n// 4. Cek apakah Base Image sudah ada?\nif (!fs.existsSync(baselineImageFile)) {\n  // JIKA TIDAK: jadikan screenshot sebagai Base Image\n  console.log('Baseline.png tidak ditemukan. Membuat baseline baru...');\n  fs.copyFileSync(currentImageFile, baselineImageFile);\n  // Tes dianggap LULUS (karena ini run pertama)\n  assert.ok(true, 'Baseline dibuat, tes lolos by default.');\n} else {\n  // JIKA YA: Compare Base Image VS Screenshot\n  console.log('Baseline.png ditemukan. Membandingkan gambar...');\n  \n  const img1 = PNG.sync.read(fs.readFileSync(baselineImageFile));\n  const img2 = PNG.sync.read(fs.readFileSync(currentImageFile));\n  const { width, height } = img1;\n  \n  // Buat file diff\n  const diff = new PNG({ width, height });\n  // 5. Compare\n  const mismatchedPixels = pixelmatch(\n    img1.data, \n    img2.data, \n    diff.data, \n    width, \n    height, \n    { threshold: 0.1 }\n  );\n  // 6. Image sama?\n  if (mismatchedPixels === 0) {\n    // JIKA YA: PASSED\n    console.log('Visual PASSED: Tidak ada perbedaan.');\n    assert.strictEqual(mismatchedPixels, 0, 'Visual test passed');\n  } else {\n    // JIKA TIDAK: FAILED\n    console.log(`Visual FAILED: Ditemukan ${mismatchedPixels} pixel yang berbeda.`);\n    fs.writeFileSync(diffImageFile, PNG.sync.write(diff));\n    console.log('Perbedaan disimpan di diff.png');\n    // Gunakan assert.fail untuk menggagalkan tes\n    assert.fail(`Visual test failed: ${mismatchedPixels} pixels berbeda. Lihat diff.png.`);\n  }\n}",
+              "err": {},
+              "uuid": "697bcf65-bff9-47bb-985c-30b07ccade0a",
+              "parentUUID": "c1f2c06f-f964-4d66-a803-82f4d98b77b7",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "bb45280b-8533-4f22-8c89-4ce7792e8bf8",
+            "02b65be2-cec4-4a36-8702-20663e94359a",
+            "697bcf65-bff9-47bb-985c-30b07ccade0a"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 5767,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 60000
+        },
+        {
+          "uuid": "3f8d5e72-5963-436c-9b9e-995c1c2a74cd",
+          "title": "SauceDemo Test",
+          "fullFile": "D:\\Praktikum\\Kristopeles_WebUIAutomation\\tests\\tugas9_saucedemo.js",
+          "file": "\\tests\\tugas9_saucedemo.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Harus berhasil login dan mengurutkan produk A-Z",
+              "fullTitle": "SauceDemo Test Harus berhasil login dan mengurutkan produk A-Z",
+              "timedOut": false,
+              "duration": 3736,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Buka browser Chrome\ndriver = await new Builder().forBrowser('chrome').build();\n\ntry {\n  // Buka website saucedemo.com\n  await driver.get('https://www.saucedemo.com'); \n  // Cek apakah judul halamannya \"Swag Labs\"\n  const title = await driver.getTitle();\n  assert.strictEqual(title, 'Swag Labs'); \n  // --- TAHAP LOGIN ---\n  // Cari elemen username, password, dan tombol login\n  let inputUsername = await driver.findElement(By.css('[data-test=\"username\"]')); \n  let inputPassword = await driver.findElement(By.xpath('//*[@data-test=\"password\"]')); \n  let buttonLogin = await driver.findElement(By.className('submit-button')); \n  // Masukkan username dan password, lalu klik login\n  await inputUsername.sendKeys('standard_user'); \n  await inputPassword.sendKeys('secret_sauce'); \n  await buttonLogin.click(); \n  // Validasi setelah login: Cek apakah 'shopping cart' tampil\n  let buttonCart = await driver.wait(\n    until.elementLocated(By.xpath('//*[@data-test=\"shopping-cart-link\"]')),\n    10000 // tunggu maks 10 detik\n  );\n  assert.ok(await buttonCart.isDisplayed(), 'Gagal login, shopping cart tidak ditemukan'); \n  // --- TAHAP SORTIR (A-Z) --- \n  // Cari dropdown untuk sortir\n  let sortDropdown = await driver.findElement(By.css('.product_sort_container'));\n  \n  // Klik dropdown\n  await sortDropdown.click();\n  // Pilih opsi 'Name (A to Z)'\n  let optionAZ = await driver.findElement(By.xpath('//option[@value=\"az\"]'));\n  await optionAZ.click();\n  // Validasi Sortir: Cek apakah dropdown sekarang menampilkan 'A TO Z'\n  let activeSortOption = await driver.findElement(By.className('active_option'));\n  let sortText = await activeSortOption.getText();\n  assert.strictEqual(sortText, 'Name (A to Z)', 'Gagal mengurutkan A-Z');\n  console.log('Test Berhasil: Login dan Sortir A-Z sukses!');\n\n} finally {\n  // 4. Tutup browser setelah tes selesai\n  await driver.quit();\n}",
+              "err": {},
+              "uuid": "05ae5ff0-80ea-4087-89e8-350d47c9872a",
+              "parentUUID": "3f8d5e72-5963-436c-9b9e-995c1c2a74cd",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "05ae5ff0-80ea-4087-89e8-350d47c9872a"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 3736,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 60000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 60000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "10.8.2"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": null,
+      "version": "6.3.0"
+    }
+  }
+}
