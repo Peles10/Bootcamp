@@ -1,0 +1,8 @@
+# Abaikan folder dependensi
+node_modules/
+allure-results/
+allure-report/
+.env
+.DS_Store
+logs/
+*.log
